@@ -1,0 +1,34 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Recommender</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        input[type=text] { width: 300px; padding: 10px; }
+        input[type=submit] { padding: 10px 20px; }
+        .movie { margin: 15px 0; }
+        .movie-title { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1> Movie Recommender</h1>
+    <form method="POST">
+        <input type="text" name="keyword" placeholder="Enter keyword " value="{{ keyword }}">
+        <input type="submit" value="Search">
+    </form>
+
+    {% if recommendations %}
+        <h2>Top Matches:</h2>
+        {% for movie in recommendations %}
+            <div class="movie">
+                <div class="movie-title">{{ loop.index }}. {{ movie.title }}</div>
+                <div>Genre: {{ movie.genres }}</div>
+                <div>Rating: {{ movie.vote_average }}</div>
+            </div>
+        {% endfor %}
+    {% elif keyword %}
+        <p>No results found for "{{ keyword }}".</p>
+    {% endif %}
+</body>
+</html>
